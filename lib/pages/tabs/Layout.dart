@@ -19,7 +19,7 @@ class _LayoutState extends State<Layout> {
           return Card(
             child: InkWell(
               onTap: () {
-                item['isBaValue']
+                item['isValue']
                     ? Navigator.pushNamed(context, '/${item['path']}',
                         arguments: {'title': item['path']})
                     : Navigator.pushNamed(context, '/${item['path']}');
@@ -42,6 +42,6 @@ class _LayoutState extends State<Layout> {
 }
 
 List<Map> routes = [
-  {'path': '商城标题以及横向商品', 'isBaValue': true},
-  {'path': '微信朋友圈', 'isBaValue': false}
+  {'path': '商城标题以及横向商品', 'isValue': true},
+  {'path': '微信朋友圈', 'isValue': false}
 ];
