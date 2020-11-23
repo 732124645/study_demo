@@ -38,9 +38,9 @@ class _Demo_02State extends State<Demo_02> {
     setState(() {
       this._loading = true;
     });
-    String url =
-        'http://192.168.1.225:3000/pyq?page=${this._page}&limit=${this._limit}';
-    var res = await Dio().get(url);
+    String url = 'http://192.168.1.179:3000/pyq';
+    var res = await Dio()
+        .get(url, queryParameters: {"page": this._page, "limit": this._limit});
     PyqModel temp = PyqModel.fromJson(res.data);
     setState(() {
       this._pyqList.addAll(temp.data);
