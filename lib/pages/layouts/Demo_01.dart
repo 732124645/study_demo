@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import '../../model/ProductModel.dart';
+import '../../dao/ProductDao.dart';
 
 class Demo_01 extends StatefulWidget {
   final Map arguments;
@@ -14,11 +14,9 @@ class _Demo_01State extends State<Demo_01> {
   List _productList = [];
 
   _getProductList() async {
-    String url = 'http://jd.itying.com/api/plist?is_hot=1';
-    var res = await Dio().get(url);
-    var temp = ProductModel.fromJson(res.data);
+    var res = await ProductDao.fetch();
     setState(() {
-      this._productList = temp.result;
+      this._productList = res.result;
     });
 
     print(this._productList);
