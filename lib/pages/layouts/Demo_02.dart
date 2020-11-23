@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import '../../model/PyqModel.dart';
 import '../../widgets/loadingWidget.dart';
+import '../../dao/PyqDao.dart';
 
 class Demo_02 extends StatefulWidget {
   Demo_02({Key key}) : super(key: key);
@@ -38,12 +37,9 @@ class _Demo_02State extends State<Demo_02> {
     setState(() {
       this._loading = true;
     });
-    String url = 'http://192.168.1.179:3000/pyq';
-    var res = await Dio()
-        .get(url, queryParameters: {"page": this._page, "limit": this._limit});
-    PyqModel temp = PyqModel.fromJson(res.data);
+    var res = await PyqDao.fetch(this._page, this._limit);
     setState(() {
-      this._pyqList.addAll(temp.data);
+      this._pyqList.addAll(res.data);
       this._loading = false;
     });
   }
@@ -68,41 +64,39 @@ class _Demo_02State extends State<Demo_02> {
   Widget _titleBar() {
     return Container(
       // opacity: this._appBarAlpha,
-      child: Container(
-        padding: EdgeInsets.only(top: 25),
-        height: 80,
-        decoration: BoxDecoration(
-            color: Color.fromRGBO(237, 237, 237, this._appBarAlpha)),
-        child: Row(
-          children: [
-            Container(
-              child: IconButton(
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  size: 20,
-                  color: this._offset > 224 ? Colors.black : Colors.white,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+      padding: EdgeInsets.only(top: 25),
+      height: 80,
+      decoration: BoxDecoration(
+          color: Color.fromRGBO(237, 237, 237, this._appBarAlpha)),
+      child: Row(
+        children: [
+          Container(
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios,
+                size: 20,
+                color: this._offset > 224 ? Colors.black : Colors.white,
               ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
-            Expanded(
-              flex: 1,
-              child: Text(this._offset > 224 ? '朋友圈' : ''),
-            ),
-            Container(
-              child: IconButton(
-                icon: Icon(
-                  Icons.camera_alt,
-                  size: 20,
-                  color: this._offset > 224 ? Colors.black : Colors.white,
-                ),
-                onPressed: null,
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(this._offset > 224 ? '朋友圈' : ''),
+          ),
+          Container(
+            child: IconButton(
+              icon: Icon(
+                Icons.camera_alt,
+                size: 20,
+                color: this._offset > 224 ? Colors.black : Colors.white,
               ),
+              onPressed: null,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -158,8 +152,8 @@ class _Demo_02State extends State<Demo_02> {
     );
   }
 
-  // 主体部分的图片
-  List<Widget> _mainImg(imgList) {
+  // Card部分的图片
+  List<Widget> _cardItemImg(imgList) {
     List<Widget> tempList = [];
     imgList.forEach((item) {
       tempList.add(Container(
@@ -174,8 +168,7 @@ class _Demo_02State extends State<Demo_02> {
     return tempList;
   }
 
-  // 主题部分
-  List<Widget> _main() {
+  List<Widget> _cardList() {
     List<Widget> tempList = [];
     if (this._pyqList.length > 0) {
       tempList = this._pyqList.map((item) {
@@ -224,7 +217,7 @@ class _Demo_02State extends State<Demo_02> {
                         SizedBox(height: 10),
                         Container(
                           child: Row(
-                            children: this._mainImg(item.images),
+                            children: this._cardItemImg(item.images),
                           ),
                         ),
                         SizedBox(height: 10),
@@ -315,7 +308,7 @@ class _Demo_02State extends State<Demo_02> {
                 },
                 child: ListView(children: [
                   this._background(),
-                  ...this._main(),
+                  ...this._cardList(),
                   this._loading && this._pyqList.length > 0
                       ? LoadingWidget()
                       : Text(''),
