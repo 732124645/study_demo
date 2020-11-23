@@ -13,6 +13,7 @@ class _Demo_01State extends State<Demo_01> {
   List _productList = [];
 
   _getProductList() async {
+    /// 调用[ProductDao.fetch]发请求拿到数据
     var res = await ProductDao.fetch();
     setState(() {
       this._productList = res.result;
