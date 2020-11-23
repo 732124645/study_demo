@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../model/ProductModel.dart';
 import '../../dao/ProductDao.dart';
 
 class Demo_01 extends StatefulWidget {

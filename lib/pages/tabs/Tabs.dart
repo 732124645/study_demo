@@ -17,36 +17,44 @@ class _TabsState extends State<Tabs> {
   @override
   void initState() {
     super.initState();
-    this._pageController = new PageController(initialPage: this._currentIndex);  // 初始化时显示第几个页面
+    this._pageController =
+        new PageController(initialPage: this._currentIndex); // 初始化时显示第几个页面
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        controller: this._pageController,  // PageView的控制器
-        children: this._pageList,          // 页面列表
-        onPageChanged: (val) {             // 鼠标滑动是时翻页时的事件
+        controller: this._pageController, // PageView的控制器
+        children: this._pageList, // 页面列表
+        onPageChanged: (val) {
+          // 鼠标滑动翻页时的事件
           print(val);
           setState(() {
             this._currentIndex = val;
           });
         },
       ),
-      bottomNavigationBar: BottomNavigationBar(  // 底部的按钮
-        onTap: (val) {                           // 点击按钮翻页的事件
+      bottomNavigationBar: BottomNavigationBar(
+        // 底部的按钮
+        onTap: (val) {
+          // 点击按钮翻页的事件
           setState(() {
             this._currentIndex = val;
+
+            /// 更改在受控[PageView]中显示哪个页面。
+            /// 将页面位置从其当前值跳转到给定值，
             this._pageController.jumpToPage(val);
           });
         },
-        items: [                                 // 底部按钮的每一项
+        items: [
+          // 底部按钮的每一项
           BottomNavigationBarItem(
               icon: Icon(Icons.layers), title: Text('Layout')),
           BottomNavigationBarItem(
               icon: Icon(Icons.android), title: Text('Native')),
         ],
-        currentIndex: this._currentIndex,        // 当前是选中的哪一个
+        currentIndex: this._currentIndex, // 当前是选中的哪一个
       ),
     );
   }
