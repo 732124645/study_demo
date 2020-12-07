@@ -11,9 +11,9 @@ class _LayoutState extends State<Layout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('布局学习'),
-      ),
+      // appBar: AppBar(
+      //   title: Text('布局学习'),
+      // ),
       body: ListView(
         children: routes.map((item) {
           return Card(

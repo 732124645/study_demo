@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_demo/pages/DrawerToPage/Collect.dart';
 import 'package:study_demo/pages/tabs/Tabs.dart';
 import '../pages/layouts/Demo_01.dart';
 import '../pages/layouts/Demo_02.dart';
@@ -8,6 +9,7 @@ final routes = {
   '/': (context) => Tabs(),
   '/商城标题以及横向商品': (context, {arguments}) => Demo_01(arguments: arguments),
   '/微信朋友圈': (context) => Demo_02(),
+  '/Collect': (context) => Collect(),
 };
 
 //固定写法

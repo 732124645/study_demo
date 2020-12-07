@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_demo/widgets/MyDrawer.dart';
 import 'Layout.dart';
 import 'Native.dart';
 
@@ -21,9 +22,35 @@ class _TabsState extends State<Tabs> {
         new PageController(initialPage: this._currentIndex); // 初始化时显示第几个页面
   }
 
+  String setAppBarTitle() {
+    String title = '';
+    switch (this._currentIndex) {
+      case 0:
+        title = '布局学习';
+        break;
+      case 1:
+        title = '混合开发学习';
+        break;
+    }
+    return title;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('${this.setAppBarTitle()}'),
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                });
+          },
+        ),
+      ),
+      drawer: MyDrawer(),
       body: PageView(
         controller: this._pageController, // PageView的控制器
         children: this._pageList, // 页面列表

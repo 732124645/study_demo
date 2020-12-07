@@ -11,9 +11,9 @@ class _NativeState extends State<Native> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-         title: Text('混合开发学习'),
-       ),
+      //  appBar: AppBar(
+      //    title: Text('混合开发学习'),
+      //  ),
     );
   }
 }
